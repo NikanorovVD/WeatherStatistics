@@ -3,13 +3,15 @@
     public class LoadFileResultModel
     {
         public List<IFormFile> SuccessfullyLoadedFiles { get; set; }
-        public List<IFormFile> InvalidFiles { get; set; }
-        public bool HaveErrors { get => InvalidFiles.Count > 0; }
+        public List<IFormFile> InvalidFormatFiles { get; set; }
+        public List<IFormFile> ConflictingDataFiles { get; set; }
+        public bool HaveErrors { get => InvalidFormatFiles.Count > 0 || ConflictingDataFiles.Count > 0; }
 
         public LoadFileResultModel()
         {
             SuccessfullyLoadedFiles = new();
-            InvalidFiles = new();
+            InvalidFormatFiles = new();
+            ConflictingDataFiles = new();
         }
     }
 }

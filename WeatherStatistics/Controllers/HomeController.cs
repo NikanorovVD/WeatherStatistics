@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using WeatherStatistics.Models;
 using WeatherStatistics.Services;
@@ -65,9 +66,13 @@ namespace WeatherStatistics.Controllers
                     _weatherStatisticsService.LoadRecords(file.OpenReadStream());
                     resultModel.SuccessfullyLoadedFiles.Add(file);
                 }
+                catch (DbUpdateException ex)
+                {
+                    resultModel.ConflictingDataFiles.Add(file);
+                }
                 catch 
                 {
-                    resultModel.InvalidFiles.Add(file);
+                    resultModel.InvalidFormatFiles.Add(file);
                 }
             }
             return View("LoadFileResult", resultModel);

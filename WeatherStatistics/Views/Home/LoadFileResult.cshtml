@@ -14,10 +14,19 @@
         }
     }
 
-    if (Model.InvalidFiles.Count > 0)
+    if (Model.ConflictingDataFiles.Count > 0)
+    {
+        <h2>Conflicting Data files:</h2>
+        foreach (var file in Model.ConflictingDataFiles)
+        {
+            <h6>@file.FileName</h6>
+        }
+    }
+
+    if (Model.InvalidFormatFiles.Count > 0)
     {
         <h2>Invalid format files:</h2>
-        foreach (var file in Model.InvalidFiles)
+        foreach (var file in Model.InvalidFormatFiles)
         {
             <h6>@file.FileName</h6>
         }

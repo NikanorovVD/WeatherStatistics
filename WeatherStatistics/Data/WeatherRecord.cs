@@ -2,7 +2,6 @@
 {
     public class WeatherRecord
     {
-        public int Id { get; set; }
         public DateOnly Date {  get; set; }
         public TimeOnly Time { get; set; }
         public decimal? Temperature {  get; set; }

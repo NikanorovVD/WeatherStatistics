@@ -1,4 +1,5 @@
-﻿using WeatherStatistics.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using WeatherStatistics.Data;
 using WeatherStatistics.Models;
 
 namespace WeatherStatistics.Services
@@ -17,9 +18,16 @@ namespace WeatherStatistics.Services
         public void LoadRecords(Stream stream)
         {
             IEnumerable<WeatherRecord> records = _statisticsReader.ReadStatistics(stream);
-
-            _dbContext.AddRange(records);
-            _dbContext.SaveChanges();
+            try
+            {
+                _dbContext.AddRange(records);
+                _dbContext.SaveChanges();
+            }
+            catch
+            {
+                _dbContext.RemoveRange(records);
+                throw new DbUpdateException();
+            }
         }
 
         public IEnumerable<WeatherRecord> GetRecords(uint year, uint? month)
