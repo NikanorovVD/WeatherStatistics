@@ -396,3 +396,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+WeatherStatistics/appsettings.json
+WeatherStatistics/appsettings.Development.json
+WeatherStatistics/Properties/launchSettings.json

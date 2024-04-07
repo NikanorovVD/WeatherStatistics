@@ -1,0 +1,52 @@
+﻿@using WeatherStatistics.Data
+@using WeatherStatistics.Models
+@model ViewStatisticsModel
+@{
+    ViewData["Title"] = "View Statistics";
+}
+
+<body>
+    <h1>@ViewData["Title"]</h1>
+
+<form asp-action="ViewStatistics" asp-controller="Home" method="post" enctype="multipart/form-data">
+    <p>
+        <div class="form-group">
+            <label asp-for="Year"></label><br />
+            <input asp-for="Year"/>    
+            <span asp-validation-for="Year" class="text-danger"/>
+        </div>
+    </p>
+    <p>
+        <div class="form-group">
+            <label asp-for="Month"></label><br />
+            <select width=200 asp-for="Month" asp-items="Html.GetEnumSelectList<Months>()">
+                <option value="@null">All</option>
+            </select>
+        </div>
+    </p>
+    <input type="submit"/>
+</form>
+<h6>Значения столбцов: T- температура воздуха, гр. Ц. ; Td - точка росы, гр. Ц. ; h - нижняя граница облачности, м ; VV - горизонтальная видимость, км</h6>
+    <table>
+        <thead>
+            <tr>
+                <th>Дата</th> <th>Время</th> <th>T</th> <th>Отн. влажность</th> <th>Td</th> <th>Давление</th> 
+                <th>Направление ветра</th> <th>Скорость ветра</th> <th>Облачность</th> <th>h</th> <th>VV</th> <th>Погодные явления</th>
+            </tr>
+        </thead>
+        @{
+            foreach (WeatherRecord record in Model?.WeatherRecords ?? new List<WeatherRecord>())
+            {
+                <tr>
+                    <td>@record.Date</td> <td>@record.Time</td> <td>@record.Temperature</td> <td>@record.RelativeHumidity</td> 
+                    <td>@record.Td</td> <td>@record.AtmosphericPressure</td> <td>@record.WindDirection</td> <td>@record.WindSpeed</td>
+                    <td>@record.CloudCover</td> <td>@record.H</td> <td>@record.VV</td> <td>@record.WeatherPhenomena</td>
+                </tr>
+            }
+        }
+    </table>
+</body>
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.10/jquery.validate.unobtrusive.min.js"></script> 

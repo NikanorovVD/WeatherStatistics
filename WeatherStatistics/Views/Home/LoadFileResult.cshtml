@@ -1,0 +1,25 @@
+﻿@model LoadFileResultModel
+@{
+    ViewData["Title"] = (Model.HaveErrors) ? "Error" : "Success";
+}
+<h1>@ViewData["Title"]</h1>
+
+@{
+    if(Model.SuccessfullyLoadedFiles.Count > 0)
+    {
+        <h2>Successfully uploaded files:</h2>
+        foreach(var file in Model.SuccessfullyLoadedFiles)
+        {
+            <h6>@file.FileName</h6>
+        }
+    }
+
+    if (Model.InvalidFiles.Count > 0)
+    {
+        <h2>Invalid format files:</h2>
+        foreach (var file in Model.InvalidFiles)
+        {
+            <h6>@file.FileName</h6>
+        }
+    }
+}
